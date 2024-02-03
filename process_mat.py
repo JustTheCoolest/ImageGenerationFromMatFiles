@@ -9,7 +9,7 @@ def load_mat_files(root_directory):
                 mat_path = os.path.join(root, file)
                 mat_files.append(mat_path)
     
-    print("\n".join(mat_files),)
+    # print("\n".join(mat_files),)
 
     return mat_files
 

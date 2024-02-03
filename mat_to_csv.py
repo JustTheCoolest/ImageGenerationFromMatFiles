@@ -3,7 +3,19 @@ import os
 import pandas as pd
 from process_mat import load_mat_files
 
-root_directory = (r'E:\College\2nd year\Inter Disciplinary\Rice False smut\WHY-HI')
+def mat_variable_to_csv(mat_file, var_name, output_csv_path):
+    # Extract data
+    data = mat[var_name]
+
+    # Convert to DataFrame
+    df = pd.DataFrame(data)
+
+    # Write to .csv file
+    df.to_csv(output_csv_path, index=False)
+    print(f"Processed: variable {var_name} -> {output_csv_path}")
+
+
+root_directory = (r'/home/goto/Dumpyard/archive')
 
 # loading all the .mat files
 mat_files = load_mat_files(root_directory)
@@ -22,17 +34,8 @@ for mat_path in mat_files:
         var_name = matching_var_names[-1]  
         print(f"Variable names : {var_name}")
         print("path of the variable file : ", mat_path)
-
-        # Extract data
-        data = mat[var_name]
-
-        # Convert to DataFrame
-        df = pd.DataFrame(data)
-
-        # Write to .csv file
-        output_csv_path = os.path.splitext(mat_path)[0] + '.csv'
-        df.to_csv(output_csv_path, index=False)
-        print(f"Processed: {mat_path} -> {output_csv_path}")
+        # Convert to .csv file
+        mat_variable_to_csv(mat, var_name, os.path.splitext(mat_path)[0] + '.csv')
     else:
         print(f"No  variable found in {mat_path}")
 
